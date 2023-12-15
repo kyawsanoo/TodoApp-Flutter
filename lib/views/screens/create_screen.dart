@@ -28,7 +28,7 @@ class _CreateScreenState extends State<CreateScreen> {
       if (dataProvider.isBack) {
         if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Creating todo succeeded.", style: TextStyle(fontSize: 18,
+          content: Text("Created todo successfully.", style: TextStyle(fontSize: 18,
             color: Colors.white,)),
         ));
         /*Navigator.push(

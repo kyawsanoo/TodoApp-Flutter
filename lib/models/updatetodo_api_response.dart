@@ -1,34 +1,39 @@
-/*
-    "data": {
-        "_id": "65748e3124a857544617ee86",
-        "todoName": "Pay Bills",
-        "isComplete": false,
-        "createdAt": "2023-12-09T15:56:11.240Z",
-        "updatedAt": "2023-12-09T17:19:20.856Z",
-        "__v": 0
-    }
- */
+
 import 'data.dart';
 
+/*
+{"id":1,"todo":"Do something nice for someone I care about","completed":true,"userId":26} */
 class UpdateTodoApiResponse {
-  int? code;
-  Data? data;
+  int? todoId;
+  String? todoName;
+  bool? isComplete;
 
-  UpdateTodoApiResponse ({this.code, this.data});
+  static UpdateTodoApiResponse empty(){
+    return UpdateTodoApiResponse();
+  }
 
-  UpdateTodoApiResponse .fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    if (json['data'] != null) {
-      data = Data.fromJson(json);
+  static bool isNotEmpty(UpdateTodoApiResponse updateTodoApiResponse){
+    if(updateTodoApiResponse.todoName!=null) {
+      return updateTodoApiResponse.todoName!.isNotEmpty;
+    }else{
+      return false;
     }
   }
 
+  UpdateTodoApiResponse({this.todoId, this.todoName, this.isComplete});
+
+  UpdateTodoApiResponse.fromJson(Map<String, dynamic> json) {
+    todoId = json['id'];
+    todoName = json['todo'];
+    isComplete = json['completed'];
+
+  }
+
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['code'] = code;
-    if (data != null) {
-      json['data'] = data?.toJson();
-    }
-    return json;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = todoId;
+    data['todo'] = todoName;
+    data['completed'] = isComplete;
+    return data;
   }
 }

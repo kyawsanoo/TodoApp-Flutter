@@ -9,11 +9,12 @@ import 'package:todoapp/models/updatetodo_api_response.dart';
 import '../models/todolist_api_response.dart';
 
 class Services {
+  final String baseUrl = "https://dummyjson.com";
 
   Future<TodoListApiResponse> getTodoListApiResponse(context) async {
     try {
       var response = await http.get(
-        Uri.parse('https://calm-plum-jaguar-tutu.cyclic.app/todos'),
+        Uri.parse('$baseUrl/todos'),
       );
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
@@ -42,10 +43,12 @@ class Services {
     }
     try {
       var response = await http.post(
-          Uri.parse('https://calm-plum-jaguar-tutu.cyclic.app/todos'),
+          Uri.parse('$baseUrl/todos/add'),
           headers: {"Content-Type": "application/json"},
           body: jsonEncode({
-            "todoName": todoName,
+            "todo": todoName,
+            "completed":false,
+            "userId":5
           })
       );
 
@@ -71,20 +74,20 @@ class Services {
   }
 
 
-  Future<DeleteTodoApiResponse> deleteTodo(String todoId) async {
+  Future<DeleteTodoApiResponse> deleteTodo(todoId) async {
     if (kDebugMode) {
       print('Delete Todo Api Call Starting $todoId');
     }
     try {
       var response = await http.delete(
-        Uri.parse('https://calm-plum-jaguar-tutu.cyclic.app/todos/$todoId'),
+        Uri.parse('$baseUrl/todos/$todoId'),
         headers: {"Content-Type": "application/json"},
       );
 
       if (response.statusCode == 200) {
         final responseBody = json.decode(response.body);
         if (kDebugMode) {
-          print('Delet Todo Api Response $responseBody');
+          print('Delete Todo Api Response $responseBody');
         }
         DeleteTodoApiResponse apiResponse = DeleteTodoApiResponse.fromJson(
             responseBody);
@@ -106,12 +109,12 @@ class Services {
       isComplete) async {
     try {
       final response = await http.put(
-          Uri.parse('https://calm-plum-jaguar-tutu.cyclic.app/todos/$todoId'),
+          Uri.parse('$baseUrl/todos/$todoId'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
           body: jsonEncode(<String, dynamic>{
-            'isComplete': isComplete,
+            'completed': isComplete,
 
           }));
 

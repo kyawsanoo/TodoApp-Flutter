@@ -82,11 +82,7 @@ class _ListScreenState extends State<ListScreen> {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      Text("createdAt: ${todos[index].createdAt!}"),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text("updatedAt: ${todos[index].updatedAt!}"),
+
                                     ],
                                   ),
                                   onTap: () {
@@ -217,57 +213,66 @@ class _ListScreenState extends State<ListScreen> {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Confirm to delete'),
-          content: const Text(
-            'Are you sure to delete?'
+        return
+          ScaffoldMessenger(child: Builder(builder: (context){
+          return Scaffold(
+            backgroundColor: Colors.transparent,
+              body: AlertDialog(
+            title: const Text('Confirm to delete'),
+            content: const Text(
+                'Are you sure to delete?'
 
-          ),
-          actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
             ),
-            Consumer<DataProvider>(builder: (context, dataProvider, child) {
-              return
-                dataProvider.loading ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-                    :
+            actions: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.labelLarge,
+                ),
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
 
-                TextButton(
-                    style: TextButton.styleFrom(
-                      textStyle: Theme
-                          .of(context)
-                          .textTheme
-                          .labelLarge,
-                    ),
-                    child: const Text('Ok'),
-                    onPressed: () async {
-                      var dataProvider = Provider.of<DataProvider>(
-                          context, listen: false);
-                      await dataProvider.callDeleteTodoApi(this, todo.todoId);
-                      if (dataProvider.isBack){
-                        if (!context.mounted) return;
-                        Navigator.of(context).pop();
-                        _pullRefresh();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Delete todo succeeded."),
-                            )
-                        );
+              Consumer<DataProvider>(builder: (context, dataProvider, child) {
+                return
+                  dataProvider.loading ?
+                  SizedBox(width: 20, height: 20, child: CircularProgressIndicator(),)
+
+                      :
+                  TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: Theme
+                            .of(context)
+                            .textTheme
+                            .labelLarge,
+                      ),
+                      child: const Text('Ok'),
+                      onPressed: () async {
+                        var dataProvider = Provider.of<DataProvider>(
+                            context, listen: false);
+                        await dataProvider.callDeleteTodoApi(this, todo.todoId);
+                        if (dataProvider.isBack){
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Deleted successfully."),
+                              )
+                          );
+                          await Future.delayed(const Duration(seconds: 1));
+
+                          Navigator.of(context).pop();
+                          _pullRefresh();
+
+                        }
+
                       }
+                  );
+              })
+            ],
+          ));
 
-                    }
-                );
-                })
-          ],
-        );
+        }));
       },
     );
   }

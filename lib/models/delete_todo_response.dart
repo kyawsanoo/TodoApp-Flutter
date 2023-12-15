@@ -1,34 +1,44 @@
 /*
-    "data": {
-        "_id": "65748e3124a857544617ee86",
-        "todoName": "Pay Bills",
-        "isComplete": false,
-        "createdAt": "2023-12-09T15:56:11.240Z",
-        "updatedAt": "2023-12-09T17:19:20.856Z",
-        "__v": 0
-    }
+   {id: 1, todo: Do something nice for someone I care about, completed: true, userId: 26, isDeleted: true, deletedOn: 2023
+-12-15T02:25:29.841Z}
  */
+import 'package:flutter/foundation.dart';
+
 import 'data.dart';
 
-class DeleteTodoApiResponse {
-  int? code;
-  Data? data;
 
-  DeleteTodoApiResponse({this.code, this.data});
+class DeleteTodoApiResponse {
+  int? todoId;
+  String? todoName;
+  bool? isComplete;
+  bool? isDeleted;
+
+  static DeleteTodoApiResponse empty(){
+    return DeleteTodoApiResponse();
+  }
+
+  static bool isNotEmpty(DeleteTodoApiResponse deleteTodoApiResponse){
+    if (kDebugMode) {
+      print('Delete Todo Response: ${deleteTodoApiResponse.toJson()}');
+    }
+    return deleteTodoApiResponse.isDeleted==true;
+  }
+
+  DeleteTodoApiResponse({this.todoId, this.todoName, this.isComplete, this.isDeleted});
 
   DeleteTodoApiResponse.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    if (json['data'] != null) {
-      data = Data.fromJson(json);
-    }
+    todoId = json['id'];
+    todoName = json['todo'];
+    isComplete = json['completed'];
+    isDeleted = json['isDeleted'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['code'] = code;
-    if (data != null) {
-      json['data'] = data?.toJson();
-    }
-    return json;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = todoId;
+    data['todo'] = todoName;
+    data['completed'] = isComplete;
+    data['isDeleted'] = isDeleted;
+    return data;
   }
 }

@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
       routes: {
         '/': (context) => ListScreen(),
         '/edit_screen': (context) => EditScreen(),
-        '/creat_screen': (context) => CreateScreen(),
+        '/create_screen': (context) => CreateScreen(),
       },
       theme: ThemeData(primarySwatch: Colors.lightGreen),
     );

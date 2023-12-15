@@ -1,47 +1,28 @@
 /*
-{
-    "code": 200,
-    "data": {
-        "_id": "65748e3124a857544617ee86",
-        "todoName": "Pay Bills",
-        "isComplete": false,
-        "createdAt": "2023-12-09T15:56:11.240Z",
-        "updatedAt": "2023-12-09T17:19:20.856Z",
-        "__v": 0
-    }
-}
- */
+{"id":1,"todo":"Do something nice for someone I care about","completed":true,"userId":26} */
 class Data {
-  String? todoId;
+  int? todoId;
   String? todoName;
   bool? isComplete;
-  String? createdAt;
-  String? updatedAt;
-  int? v;
 
   static Data empty(){
     return Data();
   }
 
-  Data({this.todoId, this.todoName, this.isComplete,  this.createdAt, this.updatedAt, this.v});
+  Data({this.todoId, this.todoName, this.isComplete});
 
   Data.fromJson(Map<String, dynamic> json) {
-    todoId = json['_id'];
-    todoName = json['todoName'];
-    isComplete = json['isComplete'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    v = json['__v'];
+    todoId = json['id'];
+    todoName = json['todo'];
+    isComplete = json['completed'];
+
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['_id'] = todoId;
-    data['todoName'] = todoName;
-    data['isComplete'] = isComplete;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    data['__v'] = v;
+    data['id'] = todoId;
+    data['todo'] = todoName;
+    data['completed'] = isComplete;
     return data;
   }
 }

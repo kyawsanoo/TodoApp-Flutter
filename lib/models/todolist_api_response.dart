@@ -1,27 +1,35 @@
 /*
-    "data": {
-        "_id": "65748e3124a857544617ee86",
-        "todoName": "Pay Bills",
-        "isComplete": false,
-        "createdAt": "2023-12-09T15:56:11.240Z",
-        "updatedAt": "2023-12-09T17:19:20.856Z",
-        "__v": 0
-    }
+    {
+  "todos": [
+    {
+      "id": 1,
+      "todo": "Do something nice for someone I care about",
+      "completed": true,
+      "userId": 26
+    },
+    {...},
+    {...}
+    // 30 items
+  ],
+  "total": 150,
+  "skip": 0,
+  "limit": 30
+}
+
  */
 import 'data.dart';
 
 class TodoListApiResponse {
-  int? code;
   List<Data>? data;
 
 
-  TodoListApiResponse({this.code, this.data});
+  TodoListApiResponse({this.data});
+
 
   TodoListApiResponse.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    if (json['data'] != null) {
+    if (json['todos'] != null) {
       data = <Data>[];
-      json['data'].forEach((v) {
+      json['todos'].forEach((v) {
         data!.add(Data.fromJson(v));
       });
     }
@@ -29,9 +37,8 @@ class TodoListApiResponse {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = <String, dynamic>{};
-    json['code'] = code;
     if (data != null) {
-      json['data'] = data!.map((v) => v.toJson()).toList();
+      json['todos'] = data!.map((v) => v.toJson()).toList();
     }
     return json;
   }

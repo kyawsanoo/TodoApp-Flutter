@@ -136,7 +136,7 @@ class _EditScreenState extends State<EditScreen> {
                               if (!context.mounted) return;
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
-                                content: Text("Update succeeded.", style: TextStyle(fontSize: 18,
+                                content: Text("Updated successfully.", style: TextStyle(fontSize: 18,
                                   color: Colors.white,),),
                               ));
                               /*Navigator.push(
