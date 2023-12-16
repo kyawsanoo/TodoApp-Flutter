@@ -259,11 +259,9 @@ class _ListScreenState extends State<ListScreen> {
                                 content: Text("Deleted successfully."),
                               )
                           );
-                          await Future.delayed(const Duration(seconds: 1));
-
-                          Navigator.of(context).pop();
-                          _pullRefresh();
-
+                          await Future.delayed(const Duration(seconds: 1)).then((value) =>
+                              Navigator.of(context).pop()
+                          ).then((value){_pullRefresh();});
                         }
 
                       }

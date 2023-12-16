@@ -21,33 +21,6 @@ class _CreateScreenState extends State<CreateScreen> {
   // declare a variable to keep track of the input text
   String _name = '';
 
-  Future<void> _submit() async {
-    if (_formKey.currentState!.validate()) {
-     var dataProvider = Provider.of<DataProvider>(context, listen: false);
-      await dataProvider.callCreateTodoApi(this, _name);
-      if (dataProvider.isBack) {
-        if (!context.mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Created todo successfully.", style: TextStyle(fontSize: 18,
-            color: Colors.white,)),
-        ));
-        /*Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ListScreen(),
-
-          ),
-        );*/
-        /*Navigator.pushReplacement(context,
-            MaterialPageRoute(builder:
-                (context) => ListScreen()
-            )
-        );*/
-        Navigator.pop(context, true);//true for isCreated bool argument to list screen
-      }
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -122,4 +95,33 @@ class _CreateScreenState extends State<CreateScreen> {
       );
 
   }
+
+  Future<void> _submit() async {
+    if (_formKey.currentState!.validate()) {
+      var dataProvider = Provider.of<DataProvider>(context, listen: false);
+      await dataProvider.callCreateTodoApi(this, _name);
+      if (dataProvider.isBack) {
+        if (!context.mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Created todo successfully.", style: TextStyle(fontSize: 18,
+            color: Colors.white,)),
+        ));
+        /*Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ListScreen(),
+
+          ),
+        );*/
+        /*Navigator.pushReplacement(context,
+            MaterialPageRoute(builder:
+                (context) => ListScreen()
+            )
+        );*/
+        Navigator.pop(context, true);//true for isCreated bool argument to list screen
+      }
+    }
+  }
+
+
 }

@@ -26,7 +26,7 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final todo = ModalRoute.of(context)!.settings.arguments as Data;
+    final Data todo = ModalRoute.of(context)!.settings.arguments as Data;
 
     return Scaffold(
       appBar: AppBar(
@@ -43,6 +43,7 @@ class _EditScreenState extends State<EditScreen> {
             child: Form(
               key: formKey,
               child: Column( crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const SizedBox(height: 10,),
                 const Text('isComplete', style: TextStyle(fontSize: 14,
                   color: Colors.black87,), ),
                 const SizedBox(height: 10,),
