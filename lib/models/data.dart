@@ -1,5 +1,7 @@
 /*
 {"id":1,"todo":"Do something nice for someone I care about","completed":true,"userId":26} */
+import 'package:flutter/foundation.dart';
+
 class Data {
   int? todoId;
   String? todoName;
@@ -7,6 +9,13 @@ class Data {
 
   static Data empty(){
     return Data();
+  }
+
+  static bool isNotEmpty(Data todo){
+    if (kDebugMode) {
+      print('Delete Todo Response: ${todo.toJson()}');
+    }
+    return todo.todoId != null;
   }
 
   Data({this.todoId, this.todoName, this.isComplete});

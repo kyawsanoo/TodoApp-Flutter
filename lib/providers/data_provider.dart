@@ -1,19 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todoapp/models/createtodo_api_response.dart';
-import 'package:todoapp/models/updatetodo_api_response.dart';
-
 import '../models/data.dart';
-import '../models/delete_todo_response.dart';
 import '../models/todolist_api_response.dart';
 import '../services/data_service.dart';
 
 
 class DataProvider with ChangeNotifier {
   TodoListApiResponse apiTodoListResponse = TodoListApiResponse(data: List.empty());
-  CreateTodoApiResponse createTodoApiResponse = CreateTodoApiResponse.empty();
-  UpdateTodoApiResponse updateTodoApiResponse = UpdateTodoApiResponse.empty();
-  DeleteTodoApiResponse deleteTodoApiResponse = DeleteTodoApiResponse.empty();
+  Data createTodoApiResponse = Data.empty();
+  Data updateTodoApiResponse = Data.empty();
+  Data deleteTodoApiResponse = Data.empty();
 
   bool loading = false;
   bool isBack = false;
@@ -36,7 +32,7 @@ class DataProvider with ChangeNotifier {
     if (kDebugMode) {
       print('Create Todo Api Response ${createTodoApiResponse.toJson()}');
     }
-    if(CreateTodoApiResponse.isNotEmpty(createTodoApiResponse)) {
+    if(Data.isNotEmpty(createTodoApiResponse)) {
       loading = false;
       isBack =true;
       notifyListeners();
@@ -56,7 +52,7 @@ class DataProvider with ChangeNotifier {
     if (kDebugMode) {
       print('Update Todo Api Response ${updateTodoApiResponse.toJson()}');
     }
-    if(UpdateTodoApiResponse.isNotEmpty(updateTodoApiResponse)) {
+    if(Data.isNotEmpty(updateTodoApiResponse)) {
       loading = false;
       isBack =true;
       notifyListeners();
@@ -80,7 +76,7 @@ class DataProvider with ChangeNotifier {
       print('In Data Provider, Delete Todo Api Response ${deleteTodoApiResponse.toJson()}');
     }
 
-    if(DeleteTodoApiResponse.isNotEmpty(deleteTodoApiResponse)) {
+    if(Data.isNotEmpty(deleteTodoApiResponse)) {
       loading = false;
       isBack =true;
       notifyListeners();

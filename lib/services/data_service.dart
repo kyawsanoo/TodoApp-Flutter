@@ -2,10 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:todoapp/models/createtodo_api_response.dart';
-import 'package:todoapp/models/delete_todo_response.dart';
-import 'package:todoapp/models/updatetodo_api_response.dart';
-
+import '../models/data.dart';
 import '../models/todolist_api_response.dart';
 
 class Services {
@@ -37,7 +34,7 @@ class Services {
     return TodoListApiResponse();
   }
 
-  Future<CreateTodoApiResponse> createTodoApiRequest(String todoName) async {
+  Future<Data> createTodoApiRequest(String todoName) async {
     if (kDebugMode) {
       print('CreateTodo Api Call Starting $todoName');
     }
@@ -57,7 +54,7 @@ class Services {
         if (kDebugMode) {
           print('CreateTodo Api Response $responseBody');
         }
-        CreateTodoApiResponse apiResponse = CreateTodoApiResponse.fromJson(
+        Data apiResponse = Data.fromJson(
             responseBody);
         return apiResponse;
       } else {
@@ -70,11 +67,11 @@ class Services {
         print('Create to do api call Error Occurred $e');
       }
     }
-    return CreateTodoApiResponse();
+    return Data.empty();
   }
 
 
-  Future<DeleteTodoApiResponse> deleteTodo(todoId) async {
+  Future<Data> deleteTodo(todoId) async {
     if (kDebugMode) {
       print('Delete Todo Api Call Starting $todoId');
     }
@@ -89,7 +86,7 @@ class Services {
         if (kDebugMode) {
           print('Delete Todo Api Response $responseBody');
         }
-        DeleteTodoApiResponse apiResponse = DeleteTodoApiResponse.fromJson(
+        Data apiResponse = Data.fromJson(
             responseBody);
         return apiResponse;
       } else {
@@ -102,10 +99,10 @@ class Services {
         print('Delete Api call Error Occurred $e');
       }
     }
-    return DeleteTodoApiResponse();
+    return Data.empty();
   }
 
-  Future<UpdateTodoApiResponse> updateTodoData( todoId,
+  Future<Data> updateTodoData( todoId,
       isComplete) async {
     try {
       final response = await http.put(
@@ -123,7 +120,7 @@ class Services {
         if (kDebugMode) {
           print('Update Todo Api Response $responseBody');
         }
-        UpdateTodoApiResponse apiResponse = UpdateTodoApiResponse.fromJson(
+        Data apiResponse = Data.fromJson(
             responseBody);
         return apiResponse;
       } else {
@@ -136,6 +133,6 @@ class Services {
         print('Update Api call Error Occurred $e');
       }
     }
-    return UpdateTodoApiResponse();
+    return Data.empty();
   }
 }
